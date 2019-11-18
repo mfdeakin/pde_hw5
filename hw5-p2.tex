@@ -1,0 +1,17 @@
+(20 points)
+Let $\domain$ be a bounded domain in $\reals^2$.
+Consider the following minimization problem:
+\begin{align*}
+  c = &\inf_{u \in \sobolevhcsdom{1}} \left( \frac{1}{2} \int_\domain |\grad u|^2 \dx
+                                        + \frac{1}{4} \int_\domain u^4 \dx
+                                        - \int_\domain f u \dx
+                                 \right)
+\end{align*}
+Show that $c$ can be attained and its minimizer is a weak solution
+\begin{align*}
+  \begin{cases}
+    \Delta u = u^3  + f(x) & x \in \domain\\
+    u = 0 & x \in \bndrydom
+  \end{cases}
+\end{align*}
+Show that the weak solution is also unique.
