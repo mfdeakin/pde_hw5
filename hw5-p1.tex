@@ -2,11 +2,18 @@
 Consider the following convection-diffusion problem
 \begin{align*}
   \begin{cases}
-    -\Delta u + \sum_{j = 1}^{n} b_j \diffquot{j}{} u + c u = f & \text{in } \domain\\
+    -\lapl u + \sum_{j = 1}^{n} b_j \diffquot{j}{} u + c u = f & \text{in } \domain\\
     u = 0 & \text{in } \bndrydom
   \end{cases}
 \end{align*}
-Assume that $f \in L^2(\Omega)$, $b_j \in C^1(\closure{\Omega})$,
+Assume that $f \in L^2(\domain)$, $b_j \in C^1(\closure{\domain})$,
 $c \in \linffuncdom$.
 Show that if $c - \frac{1}{2} \sum_{j = 1}^{n} \diffquot{j}{}(b_j) \geq 0$,
 then the above problem has a unique weak solutions.
+
+First we define the following bilinear mapping, and apply integration by parts:
+\begin{align*}
+  B[u, v] = &\int_{\domain} (D u)^T (D v) + v b \cdot (D u) + c u v \dx\\
+          = &\int_{\domain} (D u)^T (D v) + \sum_{j = 1}^n v b_j (D_j u) + c u v \dx\\
+          = &\int_{\domain} (D u)^T (D v) - \sum_{j = 1}^n (D_j v b_j) u + c u v \dx
+\end{align*}
