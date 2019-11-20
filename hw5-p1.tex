@@ -2,18 +2,62 @@
 Consider the following convection-diffusion problem
 \begin{align*}
   \begin{cases}
-    -\lapl u + \sum_{j = 1}^{n} b_j \diffquot{j}{} u + c u = f & \text{in } \domain\\
+    -\lapl u + \sum_{j = 1}^{n} b_j \graddir{x_j} u + c u = f & \text{in } \domain\\
     u = 0 & \text{in } \bndrydom
   \end{cases}
 \end{align*}
 Assume that $f \in L^2(\domain)$, $b_j \in C^1(\closure{\domain})$,
 $c \in \linffuncdom$.
-Show that if $c - \frac{1}{2} \sum_{j = 1}^{n} \diffquot{j}{}(b_j) \geq 0$,
+Show that if $c - \frac{1}{2} \sum_{j = 1}^{n} (\graddir{x_j}b_j) \geq 0$,
 then the above problem has a unique weak solutions.
 
 First we define the following bilinear mapping, and apply integration by parts:
 \begin{align*}
-  B[u, v] = &\int_{\domain} (D u)^T (D v) + v b \cdot (D u) + c u v \dx\\
-          = &\int_{\domain} (D u)^T (D v) + \sum_{j = 1}^n v b_j (D_j u) + c u v \dx\\
-          = &\int_{\domain} (D u)^T (D v) - \sum_{j = 1}^n (D_j v b_j) u + c u v \dx
+  B[u, v] = &\int_{\domain} (\grad u)^T (\grad v) + v b \cdot (\grad u) + c u v \dx
+          = \int_{\domain} (\grad u)^T (\grad v) + \sum_{j = 1}^n v b_j (\graddir{x_j} u) + c u v \dx\\
+          = &\int_{\domain} (\grad u)^T (\grad v) - \sum_{j = 1}^n (\graddir{x_j} v b_j) u + c u v \dx
+             + \int_{\bndrydom} \sum_{j = 1}^n u v b_j \nu^j \dx\\
+          = &\int_{\domain} (\grad u)^T (\grad v) - u (\grad \cdot v b) + c u v \dx\\
+          = &\int_{\domain} (\grad u)^T (\grad v)
+                          + \frac{1}{2}(v b \cdot (\grad u) - u (\grad \cdot v b))
+                          + c u v \dx%%\\
+          %% = &\int_{\domain} (\grad u)^T (\grad v)
+          %%                 + \frac{1}{2}(v b \cdot (\grad u) - u b \cdot (\grad v) - u v (\grad \cdot b))
+          %%                 + c u v \dx\\
+          %% = &\int_{\domain} (\grad u)^T (\grad v) + v b \cdot (\grad u)
+          %%                 - \frac{1}{2}(\grad \cdot u v b)
+          %%                 + c u v \dx
 \end{align*}
+Next, if we can show that $B$ is bounded and coercive, then Lax-Milgram applies,
+and thus, this has a unique solution.
+First, we use Cauchy-Schwarz and the triangle inequality to show that $B$ is bounded:
+\begin{align*}
+  |B[u, v]| = &\left|\int_{\domain} (\grad u)^T (\grad v) + v b \cdot (\grad u) +
+               c u v \dx \right|\\
+       \leq &\lnormdom{\grad u}{2} (\lnormdom{\grad v}{2} + \linfnormdom{b} \lnormdom{v}{2})
+             + \linfnormdom{c} \lnormdom{u}{2} \lnormdom{v}{2}\\
+       %% \leq &\lnormdom{\grad u}{2} \lnormdom{\grad v}{2}
+       %%       + \linfnormdom{b} \lnormdom{\grad u}{2} \lnormdom{v}{2}\\
+       %%      &+ \linfnormdom{b} \lnormdom{u}{2} \lnormdom{\grad v}{2}
+       %%       + \linfnormdom{c} \lnormdom{u}{2} \lnormdom{v}{2}\\
+       \leq &C \hnormdom{u}{1} \hnormdom{v}{1}
+\end{align*}
+Next, we need to show that $B$ is coercive.
+\begin{align*}
+  %% C \hnormdom{u}{1} \leq &B[u, u]\\
+  B[u, u] = &\int_{\domain} |\grad u|^2 + \frac{1}{2} u b \cdot (\grad u)
+             - \frac{1}{2} u (\grad \cdot u b) + c u^2 \dx\\
+          = &\int_{\domain} u^2 \left(c - \frac{1}{2} (\grad \cdot b) \right)
+                          + |\grad u|^2 \dx\\
+       \geq &\int_{\domain} |\grad u|^2 \dx
+\end{align*}
+Then, since $u = 0$ in $\bndrydom$,
+for any path $P$ from $x_0 \in \bndrydom$ to $x \in \domain$,
+$|u| = \left|\int_{P} D u \cdot ds \right| \leq \lnormdom{D u}{2}$.
+Thus, there exists a positive $C$ s.t.
+\begin{align*}
+  C \hnormdom{u}{1}^2 \leq B[u, u]
+\end{align*}
+and thus, $B$ satisfies the hypotheses of the Lax-Milgram theorem,
+proving that it must have a unique solution.\\
+
