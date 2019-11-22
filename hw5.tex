@@ -4,9 +4,12 @@
 \usepackage{latexsym}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{unicode-math}
 \usepackage{fancyhdr}
 \usepackage[margin=1.0in, left=0.5in, right=0.5in, top=1.25in, headsep=10mm, headheight=15mm]{geometry}
 \usepackage{graphicx}
+
+\setmathfont{Latin Modern Math}
 
 \pagestyle{fancy}
 \rhead{Michael Deakin\\Math 516\\Homework 5}
@@ -26,19 +29,19 @@
 \newcommand*\sequence[2]{\set{#1}_{#2=1}^\infty}
 \newcommand*\series[2]{\sum_{#2=1}^\infty #1_{#2}}
 \newcommand*\compose[2]{#1 \circ #2}
-\newcommand*\udisk[0]{\mathbb{D}}
+\newcommand*\udisk{\mathbb{D}}
 \newcommand*\disk[2]{D_{#1}(#2)}
 \newcommand*\punctdisk[2]{\disk_{ #1 } - \set{#2}}
-\newcommand*\complex[0]{\mathbb{C}}
-\newcommand*\naturals[0]{\mathbb{N}}
-\newcommand*\rationals[0]{\mathbb{Q}}
-\newcommand*\reals[0]{\mathbb{R}}
+\newcommand*\complex{\mathbb{C}}
+\newcommand*\naturals{\mathbb{N}}
+\newcommand*\rationals{\mathbb{Q}}
+\newcommand*\reals{\mathbb{R}}
 
 % Function spaces
 \newcommand*\cnfunc[2]{C^{#2}\left(#1 \right)}
 \newcommand*\cnfuncdom[1]{C^{#1}\left(\domain \right)}
 \newcommand*\linffunc[1]{L^{\infty}\left(#1 \right)}
-\newcommand*\linffuncdom[0]{L^{\infty}\left(\domain \right)}
+\newcommand*\linffuncdom{L^{\infty}\left(\domain \right)}
 \newcommand*\lnfunc[2]{L^{#2}\left(#1 \right)}
 \newcommand*\lnfuncdom[1]{L^{#1}\left(\domain \right)}
 \newcommand*\sobolev[3]{W^{#2, #3}\left(#1 \right)}
@@ -50,16 +53,16 @@
 \newcommand*\sobolevhcs[2]{H_0^{#2}\left(#1 \right)}
 \newcommand*\sobolevhcsdom[1]{H_0^{#1}\left(\domain \right)}
 
-\newcommand*\grad[0]{D}
+\newcommand*\grad{D}
 \newcommand*\graddir[1]{D^{#1}}
-\newcommand*\lapl[0]{\Delta}
+\newcommand*\lapl{∆}
 \newcommand*\diffquot[1]{D^{#1}}
 \newcommand*\diffquotdir[2]{D_{#2}^{#1}}
 
-\newcommand*\domain[0]{U}
+\newcommand*\domain{U}
 \newcommand*\bndry[1]{\partial #1}
-\newcommand*\bndrydom[0]{\partial \domain}
-\newcommand*\compactcont[0]{\subset \subset} % U \compactcont V \rightarrow U \subset \closure{U} \subset V, where U, V are (open) domains
+\newcommand*\bndrydom{\partial \domain}
+\newcommand*\compactcont{\subset \subset} % U \compactcont V \rightarrow U \subset \closure{U} \subset V, where U, V are (open) domains
 
 \newcommand*\ball[2]{B_{#2}(#1)}
 
@@ -79,17 +82,17 @@
 \newcommand*\nthderiv[3]{\frac{\dd{^{#3} #1}}{\dd{#2^{#3}}}}
 
 % Norms
-\newcommand*\linfnorm[2]{\left|\left|#1\right|\right|_{L^{\infty}(#2)}}
-\newcommand*\linfnormdom[1]{\left|\left|#1\right|\right|_{L^{\infty}(\domain)}}
+\newcommand*\linfnorm[2]{\left\lVert#1\right\rVert_{L^{\infty}(#2)}}
+\newcommand*\linfnormdom[1]{\left\lVert#1\right\rVert_{L^{\infty}(\domain)}}
 
-\newcommand*\lnorm[3]{\left|\left|#1\right|\right|_{L^{#2}(#3)}}
-\newcommand*\lnormdom[2]{\left|\left|#1\right|\right|_{L^{#2}(\domain)}}
+\newcommand*\lnorm[3]{\left\lVert#1\right\rVert_{L^{#2}(#3)}}
+\newcommand*\lnormdom[2]{\left\lVert#1\right\rVert_{L^{#2}(\domain)}}
 
-\newcommand*\hnorm[3]{\left|\left|#1\right|\right|_{H^{#2}(#3)}}
-\newcommand*\hnormdom[2]{\left|\left|#1\right|\right|_{H^{#2}(\domain)}}
+\newcommand*\hnorm[3]{\left\lVert#1\right\rVert_{H^{#2}(#3)}}
+\newcommand*\hnormdom[2]{\left\lVert#1\right\rVert_{H^{#2}(\domain)}}
 
-\newcommand*\wnorm[4]{\left|\left|#1\right|\right|_{W^{#2, #3}(#4)}}
-\newcommand*\wnormdom[3]{\left|\left|#1\right|\right|_{W^{#2, #3}(\domain)}}
+\newcommand*\wnorm[4]{\left\lVert#1\right\rVert_{W^{#2, #3}(#4)}}
+\newcommand*\wnormdom[3]{\left\lVert#1\right\rVert_{W^{#2, #3}(\domain)}}
 
 \DeclareMathOperator{\res}{res}
 \DeclareMathOperator{\sign}{sign}
