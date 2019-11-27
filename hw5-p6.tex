@@ -1,8 +1,37 @@
+\newpage
 (10 points)
-Show that $u = \log|x| \in \sobolevh{B_1}{1}$ where $B_1 = B_1(0) \subset \reals^3$
+Show that $u = \log\lvert x \rvert \in \sobolevhdom{1}$ where $\domain = B_{1/2}(0) \subset \reals^3$
 and that it is a weak solution of
 \begin{align*}
   -\lapl u + c(x) u = 0
 \end{align*}
-for some $c(x) \in \lnfunc{B_1}{\frac{3}{2}}$,
+for some $c(x) \in \lnfunc{\domain}{\frac{3}{2}}$,
 but that $u$ is not bounded.
+
+First, for some $\delta \in (0, 1)$, let $\domain_{\delta} = \domain - B_{\delta}(0)$; then we compute $\hnormdom{u}{1}$:
+\begin{align*}
+  \lnorm{u}{2}{\domain_{\delta}}^2 = &\int_{\domain_{\delta}} \log^2(\lvert x \rvert) \dx
+    = \left. \frac{\bunitvolumedef}{n^2} \lvert x \rvert^n
+        \left( n^2 \log^2(\lvert x \rvert) - 2 n \log(\lvert x \rvert) + 2 \right) \right \rvert_{\lvert x \rvert = \delta}^{1}
+      \rightarrow 2 \frac{\bunitvolumedef}{n^2}\\
+  u_{x_k} = &\frac{x_k}{\lvert x \rvert^2}\\
+  \lnorm{\grad u}{2}{\domain_{\delta}}^2 = &\int_{\domain_{\delta}} \frac{1}{\lvert x \rvert^2} \dx
+    = \left. \frac{\bunitsurfareadef}{n - 2} \lvert x \rvert^{n - 2} \right \rvert_{\lvert x \rvert = \delta}^{1}
+    = \frac{\bunitsurfareadef}{n - 2} (1 - \delta^{n - 2}) \rightarrow \frac{\bunitsurfareadef}{n - 2}
+\end{align*}
+as $\delta \rightarrow 0^+$. (Note that we used $n \geq 3$ in the computation of the gradient norm).
+
+Then we have $\hnormdom{u}{1} = 2 \frac{\bunitvolumedef}{n^2} + \frac{\bunitsurfareadef}{n - 2}$.
+Since this is finite, $u \in \sobolevhdom{1}$.
+We also note that $\limitto{x}{0} u = -\infty$, so $u$ is not bounded.
+
+Next, for any $v \in \sobolevhcsdom{1}$, the weak equation that we need to show $u$ satisifies is
+\begin{align*}
+  0 = &\int_{\domain} (\grad u) \cdot (\grad v) + c(x) u v \dx
+    = \int_{\domain} \sum_{k = 1}^n \frac{x_k v_{x_k}}{\lvert x \rvert^2} + c(x) u v \dx
+\end{align*}
+Starting with our original equation, we have
+\begin{align*}
+  0 = &\int_{\domain} -\sum_{k = 1}^n \frac{v}{\lvert x \rvert^2} + c(x) u v \dx
+\end{align*}
+\newpage

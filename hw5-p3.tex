@@ -1,8 +1,60 @@
 (10 points)
-Let $u \in \sobolevh{1}{\reals^n}$ have compact support and be a weak solution
+Let $u \in \sobolevh{\reals^n}{1}$ have compact support and be a weak solution
 of the semilinear PDE
 \begin{align*}
-  \lapl u(x) = u^3(x) + f(x) & & x \in \reals^n
+  \lapl u(x) = u^3(x) - f(x) & \hspace{5mm} x \in \reals^n
 \end{align*}
-where $f \in \lnfunc{2}{\reals^n}$.
+where $f \in \lnfunc{\reals^n}{2}$.
 Prove that $\lnorm{\grad^2 u}{2}{\reals^n} \leq C \lnorm{f}{2}{\reals^n}$.
+(Hint: Mimic the proof of $H^2$ estimates but without the cutoff function)
+
+This is just a special case of Evans problem 6.7.
+Following the proof for Theorem 6.3.1, since $u$ is a weak solution to the PDE,
+if we choose
+$v = -\diffquotdir{-h}{k}(\diffquotdir{h}{k} u)$,
+we can use the difference quotient integration by parts formula to compute
+\begin{align*}
+  \int_{\reals^n} (\grad u) \cdot (\grad v) \dx
+       = &\sum_{i = 1}^n \int_{\reals^n} u_{x_i} (-\diffquotdir{-h}{k} \diffquotdir{h}{k} u_{x_i}) \dx
+        = \sum_{i = 1}^n \int_{\reals^n} (\diffquotdir{h}{k} u_{x_i})^2 \dx\\
+       = &\int_{\reals^n} \left|\diffquotdir{h}{k} \grad u \right|^2 \dx
+\end{align*}
+Next, since $\sobolevh{\reals^n}{1} = \sobolevhcs{\reals^n}{1}$,
+we can bound the $\int_{\reals^n} f v \dx$ term using the Cauchy inequality and
+Theorem 3 from Evans 5.8:
+\begin{align*}
+  \int_{\reals^n} f v \dx \leq &\int_{\reals^n} f v \dx
+    \leq \epsilon \int_{\reals^n} f^2 \dx + \frac{1}{4 \epsilon} \int_{\reals^n} v^2 \dx\\
+    = &\epsilon \int_{\reals^n} f^2 \dx
+       + \frac{1}{4 \epsilon} \int_{\reals^n} (\diffquotdir{-h}{k} \diffquotdir{h}{k} u)^2 \dx\\
+ \leq &\epsilon \int_{\reals^n} f^2 \dx
+       + \frac{C}{4 \epsilon} \int_{\reals^n} (\grad \diffquotdir{h}{k} u)^2 \dx\\
+    = &\epsilon \int_{\reals^n} f^2 \dx
+       + \frac{C}{4 \epsilon} \int_{\reals^n} (\diffquotdir{h}{k} \grad u)^2 \dx
+\end{align*}
+where $C > 0$ is dependent only on $u$.
+Then we can choose $\epsilon = \frac{C}{2}$, leaving us with
+\begin{align*}
+  \int_{\reals^n} f v \dx \leq &\int_{\reals^n} f v \dx
+ \leq C \int_{\reals^n} f^2 \dx
+       + \frac{1}{2} \int_{\reals^n} (\diffquotdir{h}{k} \grad u)^2 \dx
+\end{align*}
+To conclude, using the difference quotient integration by parts formula and difference of cubes, we have
+\begin{align*}
+  \int_{\reals^n} u^3 v \dx = &\int_{\reals^n} u^3 (-\diffquotdir{-h}{k} (\diffquotdir{h}{k} u)) \dx
+    = \int_{\reals^n} (\diffquotdir{h}{k} u^3) (\diffquotdir{h}{k} u) \dx\\
+    = &\int_{\reals^n} (u^3(x + h e_k) - u^3(x)) (\diffquotdir{h}{k} u) \dx\\
+    = &\int_{\reals^n} \frac{1}{h}((u(x + h e_k) - u(x)) (u^2(x + h e_k) + u(x + h e_k) u(x) + u^2(x))) (\diffquotdir{h}{k} u) \dx\\
+ \geq &\int_{\reals^n} \left(\frac{1}{2} u^2(x + h e_k) + u(x + h e_k) u(x) + \frac{1}{2} u(x)) \right) (\diffquotdir{h}{k} u)^2 \dx\\
+    = &\int_{\reals^n} \frac{1}{2}(u(x + h e_k) + u(x)))^2 (\diffquotdir{h}{k} u)^2 \dx\\
+    \geq &0
+\end{align*}
+Thus,
+\begin{align*}
+  \int_{\reals^n} \left|\diffquotdir{h}{k} \grad u \right|^2 \dx
+    \leq C \int_{\reals^n} f^2 \dx
+       + \frac{1}{2} \int_{\reals^n} (\diffquotdir{h}{k} \grad u)^2 \dx
+\end{align*}
+%% Then recall that $\sobolevh{\reals^n}{1} = \sobolevhcs{\reals^n}{1}$,
+%% so we can apply Evans 5.8.2 Theorem 3 to conclude
+%% $\int_{\reals^n} (D u) \cdot (D v) \dx \leq \int_{\ \diffquotdir{h}{k}reals^n} (\lapl u)$

@@ -4,7 +4,7 @@ Consider the following minimization problem:
 \begin{align*}
   c = &\inf_{u \in \sobolevhcsdom{1}} \left( \frac{1}{2} \int_\domain |\grad u|^2 \dx
                                         + \frac{1}{4} \int_\domain u^4 \dx
-                                        - \int_\domain f u \dx
+                                        + \int_\domain f u \dx
                                  \right)
 \end{align*}
 Show that $c$ can be attained and its minimizer is a weak solution
@@ -15,3 +15,94 @@ Show that $c$ can be attained and its minimizer is a weak solution
   \end{cases}
 \end{align*}
 Show that the weak solution is also unique.
+
+First define the bilinear form $B: (\sobolevhdom{1})^2 \rightarrow \reals$
+\begin{align*}
+  B[u, v] = &\int_{\domain} -(\grad u) \cdot (\grad v) \dx
+\end{align*}
+If $u$ is a weak solution, for any $v \in \sobolevhdom{1}$ we have
+\begin{align*}
+  B[u, v] = &\int_{\domain} u^3 v + f v \dx
+\end{align*}
+Next, define $i: \sobolevhdom{1} \rightarrow [0, \infty)$ with
+\begin{align*}
+  i[w] = \frac{1}{2} \int_\domain |\grad w|^2 \dx
+         + \frac{1}{4} \int_\domain w^4 \dx
+         + \int_\domain f w \dx
+\end{align*}
+Then for some nonzero $v \in \sobolevhdom{1}$ with $v \in \linffuncdom$, $t \in \reals$,
+we compute
+\begin{align*}
+  i[u + v t] = &\frac{1}{2} \int_\domain |\grad (u + v t)|^2 \dx
+                + \frac{1}{4} \int_\domain (u + v t)^4 \dx
+                + \int_\domain f (u + v t) \dx\\
+  \pderiv{}{t} i[u + v t]
+             = &\int_\domain \sum_{i = 1}^n (u_{x_i} + v_{x_i} t) v_{x_i}
+                + (u + v t)^3 v + f v \dx\\
+             = &\int_\domain (\grad u) \cdot (\grad v) + t \lvert \grad v \rvert^2
+                + (u + v t)^3 v + f v \dx\\
+             = &\int_\domain (\grad u) \cdot (\grad v) + t \lvert \grad v \rvert^2
+                + u^3 v + 3 u^2 v^2 t + 3 u v^3 t^2 + v^4 t^3 + f v \dx\\
+  \left. \pderiv{}{t} i[u + v t] \right \rvert_{t = 0}
+             = &\int_\domain (\grad u) \cdot (\grad v) + u^3 v + f v \dx
+\end{align*}
+For critical points of $i$, $\left. \pderiv{}{t} i[u + v t] \right \rvert_{t = 0} = 0$
+Thus, critical points of $i$ are weak solutions to the PDE.
+Next we show this is a minimum:
+\begin{align*}
+  \nthpderiv{}{t}{2} i[u + v t]
+    = &\pderiv{}{t} \int_\domain t \lvert \grad v \rvert^2
+                                + 3 u^2 v^2 t + 3 u v^3 t^2 + v^4 t^3 \dx\\
+    = & \int_\domain \lvert \grad v \rvert^2 + 3 u^2 v^2 + 6 u v^3 t + 3 v^4 \dx\\
+  \left. \nthpderiv{}{t}{2} i[u + v t] \right\rvert_{t = 0}
+    = &\int_\domain \lvert \grad v \rvert^2 + 3 u^2 v^2 + 3 v^4 \dx > 0
+\end{align*}
+Next, consider two minima of $i$, $u_1$ and $u_2$.
+Then for any $v \in \sobolevhdom{1}$,
+\begin{align*}
+  0 = &\left. \pderiv{}{t} i[u_1 + v t] \right\rvert_{t = 0}
+    = \int_\domain (\grad u_1) \cdot (\grad v) + u_1^3 v + f v \dx\\
+    = &\left. \pderiv{}{t} i[u_2 + v t] \right\rvert_{t = 0}
+    = \int_\domain (\grad u_2) \cdot (\grad v) + u_2^3 v + f v \dx\\
+  0 = &\int_\domain (\grad (u_1 - u_2)) \cdot (\grad v) + (u_1^3 - u_2^3) v \dx
+\end{align*}
+Let $v = u_1 - u_2$, and note that $u_1 - u_2 > 0 \rightarrow u_1^3 - u_2^3 > 0$
+and $u_1 - u_2 < 0 \rightarrow u_1^3 - u_2^3 < 0$.
+Then $(u_1^3 - u_2^3) v \geq 0$, and $(\grad (u_1 - u_2)) \cdot (\grad v) \geq 0$.
+Thus, $u_1 = u_2$, as otherwise
+$\int_\domain (\grad (u_1 - u_2)) \cdot (\grad v) + (u_1^3 - u_2^3) v \dx > 0$,
+proving that $i$ has only one local minimum, and thus,
+if the weak solution exists, it is the minimum and unique.
+
+Alternatively, we can show that $i$ is convex; that is, for any $u_0, u_1 \in \sobolevhdom{1}$,
+$t \in [0, 1]$, we have $i[(1 - t) u_0 + t u_1] \leq (1 - t) i[u_0] + t i[u_1]$.
+This is done by applying Cauchy's inequality:
+\begin{align*}
+ 0 \geq &i[(1 - t) u_0 + t u_1] - (1 - t) i[u_0] + t i[u_1]\\
+   = &\int_{\domain} \frac{1}{2} \left(
+         \left\lvert (1 - t) \grad u_0 + t \grad u_1 \right \rvert^2
+           - (1 - t) \left\lvert \grad u_0 \right\rvert^2
+           - t \left\lvert \grad u_1 \right\rvert^2 \right) \dx\\
+     &+ \int_{\domain} \frac{1}{4} \left(
+         [(1 - t) u_0 + t u_1]^4
+         - (1 - t) u_0^4 - t u_1^4 \right) \dx\\
+   \leq &\int_{\domain} \frac{1}{2}
+           \left(\left\lvert \grad u_0 \right\rvert^2 \left( (1 - t)^2 + 2 \epsilon (1 - t)^2 - (1 - t) \right) \right)
+           + \left(\left\lvert \grad u_1 \right\rvert^2 \left( t^2 + 2 \epsilon t^2 - t \right) \right) \dx\\
+        &+ \int_{\domain} \frac{1}{4} \left(
+          [(1 - t) u_0 + t u_1]^4 - (1 - t) u_0^4 - t u_1^4 \right) \dx\\
+   %% = \int_{\domain} \frac{1}{2} \left \lvert (1 - t) \grad u_0 + t \grad u_1 \right \rvert^2
+   %%   + \frac{1}{4} ((1 - t) u_0 + t u_1)^4 + ((1 - t) u_0 + t u_1) \dx\\
+   %% = \int_{\domain} &\frac{1}{2} \sum_{k = 1}^n (1 - t) u_{0, x_k}^2 + t u_{1, x_k}^2
+   %%        - (1 - t)^2 u_{0, x_k} - 2 t (1 - t) u_{0, x_k} u_{1, x_k} - t^2 u_{1, x_k}^2\\
+   %%   + &\frac{1}{4} ((1 - t) u_0 + t u_1)^4 + ((1 - t) u_0 + t u_1) \dx\\
+\end{align*}
+Choosing $\epsilon$ with $\frac{1 - t}{4 t} < \epsilon < \frac{1 - t}{2 t}$
+ensures that the first term is negative.
+The second term is negative whenever $(1 - t) (u_0 - u_1)^2 > 0$, which is always true for the range of $t$.
+Thus, the energy functional is convex, and has at most one minimum.
+
+Finally, assume that $i$ cannot attain its minimum.
+Then $\forall u \in \sobolevhdom{1}$,
+$i[u] > c$
+\newpage
