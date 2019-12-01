@@ -1,8 +1,43 @@
 (10 points)
 Let $u$ be a smooth solution of $L u = -\sum_{i, j} a^{i, j} u_{x_i x_j} = 0$ in $U$
-and $a^{i, j} \in \cnfuncdom{1}$ and uniformly elliptic.
+and $a^{i, j} \in \cnfunc{\overline \domain}{1}$ and uniformly elliptic.
 Set $v = |D u|^2 + \lambda u^2$.
-Show that
+Show that for large $\lambda$,
 \begin{align*}
-  \linfnormdom{\grad u} \leq C (\linfnorm{\grad u}{\bndrydom} + \linfnorm{u}{\bndrydom})
+  L v \leq 0 \hspace{5mm} \in \domain
 \end{align*}
+
+Then deduce by the maximum principle that
+\begin{align*}
+  \linfnormdom{\grad u} \leq C (\linfnorm{\grad u}{\bndrydom} + \linfnorm{u}{\domain})
+\end{align*}
+
+First we compute for $v$:
+\begin{align*}
+  v = &\sum_{k = 1}^{n} u_{x_k}^2 + \lambda u^2\\
+  v_{x_i} = &2 \sum_{k = 1}^{n} u_{x_k} u_{x_i, x_k} + 2 \lambda u u_{x_k}\\
+  v_{x_i, x_j} = &2 \sum_{k = 1}^{n} (u_{x_i, x_k} u_{x_j, x_k} + u_{x_k} u_{x_i, x_j, x_k}) + 2 \lambda (u_{x_i} u_{x_j} + u u_{x_i, x_k})\\
+  L v &= -2 \sum_{i, j = 1}^{n} a^{i, j}
+            \left[ \sum_{k = 1}^{n} (u_{x_i, x_k} u_{x_j, x_k} + u_{x_k} u_{x_i, x_j, x_k})
+                   + \lambda (u_{x_i} u_{x_j} + u u_{x_i, x_j})
+            \right]
+\end{align*}
+Then using the ellipticity of the operator and that $u$ is a solution to $L u = 0$,
+we have some positive $\theta$ s.t.
+\begin{align*}
+  L v %\leq &  some intermediate calculations here...
+      \leq &-2 \theta \left( \sum_{k} |\grad u_{x_k}|^2 + \lambda |\grad u|^2 \right) - 2 \sum_{i, j, k} a^{i, k} u_{x_k} u_{x_i, x_j, x_k}\\
+      %= &-2 \theta \left( \sum_{k} |\grad u_{x_k}|^2 + \lambda |\grad u|^2 \right) - 2 \sum_{i, j, k} a^{i, k} u_{x_k} u_{x_i, x_j, x_k}
+  \sum_{i, j, k = 1}^{n} a^{i, k} u_{x_k} u_{x_i, x_j, x_k}
+    = &\sum_{i, j, k = 1}^{n} u_{x_k} \left[ (a^{i, j} u_{x_i, x_j})_{x_k} - a^{i, j}_{x_k} u_{x_i, x_j} \right]\\
+    = &-\sum_{i, j, k = 1}^{n} a^{i, j}_{x_k} u_{x_k} u_{x_i, x_j}\\
+ \leq &\\
+  L v \leq &-2 \theta \left( \sum_{k} |\grad u_{x_k}|^2 + \lambda |\grad u|^2 \right) + 2 \sum_{i, j, k = 1}^{n} a^{i, j}_{x_k} u_{x_k} u_{x_i, x_j}\\
+  \leq &-2 \theta \left( \sum_{k} |\grad u_{x_k}|^2 + \lambda |\grad u|^2 \right) + 2 \sum_{i, j, k = 1}^{n} a^{i, j}_{x_k} \left(\epsilon u_{x_k}^2 + \frac{u_{x_i, x_j}}{4 \epsilon}\right)\\
+\end{align*}
+Then, since (I assume) $a^{i, j}_{x_k}$ is bounded, choosing a large enough $\epsilon$ gives
+$2 \sum_{i, j, k = 1}^{n} a^{i, j}_{x_k} \frac{u_{x_i, x_j}}{4 \epsilon} - 2 \theta \sum_{k} |\grad u_{x_k}|^2 < 0$.
+Then for large enough $\lambda$ we have $2 \sum_{i, j, k = 1}^{n} a^{i, j}_{x_k} u_{x_i} - 2 \lambda \theta \sum_{k} |\grad u|^2 < 0$.
+Thus, $L v < 0$ in $\domain$, so the strong maximum principle applies to $v$,
+and $\max_{\domain} |\grad u|^2 + \lambda u^2 \leq \max_{\bndrydom} |\grad u|^2 + \lambda u^2 = \max_{\bndrydom} |\grad u|^2$,
+completing the proof.
