@@ -1,6 +1,5 @@
-\newpage
 (10 points)
-Show that $u = \log\lvert x \rvert \in \sobolevhdom{1}$ where $\domain = B_{1/2}(0) \subset \reals^3$
+Show that $u = \log\lvert x \rvert \in \sobolevhdom{1}$ where $\domain = B_{1}(0) \subset \reals^3$
 and that it is a weak solution of
 \begin{align*}
   -\lapl u + c(x) u = 0
@@ -25,13 +24,34 @@ Then we have $\hnormdom{u}{1} = 2 \frac{\bunitvolumedef}{n^2} + \frac{\bunitsurf
 Since this is finite, $u \in \sobolevhdom{1}$.
 We also note that $\limitto{x}{0} u = -\infty$, so $u$ is not bounded.
 
-Next, for any $v \in \sobolevhcsdom{1}$, the weak equation that we need to show $u$ satisifies is
+Next, let $c(x) = \frac{\Delta u}{u} = \frac{2 - n}{\lvert x \rvert^2 \log \lvert x \rvert}$
+(this isn't technically in $\lnfunc{\domain}{\frac{3}{2}}$, some modification of the domain and $u$ is needed).
+Clearly, $u$ satisfies the strong equation everywhere in $U$ except possibly at $0$ with this $c$.
+Then for any $v \in \sobolevhdom{1}$, with $\nu = \frac{x}{\lvert x \rvert}$ we must have
 \begin{align*}
-  0 = &\int_{\domain} (\grad u) \cdot (\grad v) + c(x) u v \dx
-    = \int_{\domain} \sum_{k = 1}^n \frac{x_k v_{x_k}}{\lvert x \rvert^2} + c(x) u v \dx
+  0 = &\int_{\domain_{\delta}} -\lapl u v + c(x) u v \dx
+     = \int_{\domain_{\delta}} (\grad u) \cdot (\grad v) + c(x) u v \dx
+       - \int_{\bndrydom} v \left( \pderiv{u}{\nu} \right) \dS
+       + \int_{\bndry{\ball{0}{\delta}}} v \left( \pderiv{u}{\nu} \right) \dS\\
+    = &\int_{\domain_{\delta}} (\grad u) \cdot (\grad v) + c(x) u v \dx
+       + \int_{\bndry{\ball{0}{\delta}}} v \left( \pderiv{u}{\nu} \right) \dS\\
 \end{align*}
-Starting with our original equation, we have
+Then, noting that $\lvert x \rvert = \delta$, we compute for $n = 3$
 \begin{align*}
-  0 = &\int_{\domain} -\sum_{k = 1}^n \frac{v}{\lvert x \rvert^2} + c(x) u v \dx
+  \int_{\bndry{\ball{0}{\delta}}} v \left( \pderiv{u}{\nu} \right) \dS
+    = &\int_{\bndry{\ball{0}{\delta}}} v \left( \frac{1}{\delta^3} \sum_{k = 1}^{n} x_k x_k \right) \dS
+     = \int_{\bndry{\ball{0}{\delta}}} \frac{v}{\delta} \dS\\
+    = &\int_{\theta = 0}^{\pi} \int_{\phi = 0}^{2 \pi} v \delta \sin(\theta) \dd{\phi} \dd{\theta}
 \end{align*}
-\newpage
+Since $v \in \sobolevhdom{1}$, it's bounded on $\bndry{\ball{0}{\delta}}$,
+so by the dominated convergence theorem,
+\begin{align*}
+  \limitto{\delta}{0} \int_{\bndry{\ball{0}{\delta}}} v \left( \pderiv{u}{\nu} \right) \dS =
+    &\int_{\theta = 0}^{\pi} \int_{\phi = 0}^{2 \pi} \limitto{\delta}{0} v \delta \sin(\theta) \dd{\phi} \dd{\theta}
+    = 0
+\end{align*}
+Thus, $u$ is the weak solution for
+\begin{align*}
+  \int_{\domain} (\grad u) \cdot (\grad v) + \frac{2 - n}{\lvert x \rvert^2 \log \lvert x \rvert}  u v \dx
+\end{align*}
+for $n = 3$ (and also $n > 3$).
