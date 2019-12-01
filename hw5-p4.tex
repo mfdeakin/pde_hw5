@@ -1,6 +1,45 @@
 (10 points)
 Assume that $u \in \sobolevhdom{1}$ is a bounded weak solution of
 \begin{align*}
-  -\sum_{i, j = 1}^n \graddir{j} (a^{i, j} \graddir{i} u) = 0 & & \in \domain
+  -\sum_{i, j = 1}^n \graddir{j} (a^{i, j} u_{x_i}) = 0
+    & \hspace{5mm} x \in \domain
 \end{align*}
-Show that $u^5$ is a weak sub-solution
+Show that $u^4$ is a weak sub-solution.
+
+This is a special case of Evans 6.6.11.
+
+First, given a $u \in \sobolevhdom{1}, v \in \cnfuncdom{2} \cap \linffuncdom$, our bilinear form is
+\begin{align*}
+  B[u, v] = \int_{\domain} \sum_{i, j}^n a^{i, j} u_{x_i} v_{x_j} \dx
+\end{align*}
+and $u$ satisfies $B[u, v] = 0$ for any $v \in \sobolevhdom{1}$.
+We want to show that $B[u^4, v] \leq 0$ for $v \in \sobolevhcsdom{1}$ with $v \geq 0$.
+We have
+%% We compute for $u^4$:
+%% \begin{align*}
+%%   -\sum_{i, j = 1}^n \graddir{j} (a^{i, j} \graddir{i} u^4)
+%%     = &-4 \sum_{i, j = 1}^n \graddir{j} (a^{i, j} u^3 u_{x_i})
+%%     = -4 \sum_{i, j = 1}^n a_{x_j}^{i, j} u^3 u_{x_i} + a^{i, j} u^3 u_{x_i, x_j} + 4 a^{i, j} u^2 u_{x_i} u_{x_j}\\
+%%     = &-4 \sum_{i, j = 1}^n u^2 (a_{x_j}^{i, j} u u_{x_i} + a^{i, j} (u u_{x_i, x_j} + 3 u_{x_i} u_{x_j}))
+%% \end{align*}
+\begin{align*}
+  %% 0 \geq &-5 \sum_{i, j = 1}^n u^3 (a_{x_j}^{i, j} u u_{x_i} + a^{i, j} (u u_{x_i, x_j} + 4 u_{x_i} u_{x_j}))
+  B[u^4, v] = &\int_{\domain} 4 \sum_{i, j}^n a^{i, j} u^3 u_{x_i} v_{x_j} \dx
+    = \int_{\domain} 4 \sum_{i, j}^n a^{i, j} (u_{x_i} (\graddir{j} u^3 v) - 4 u^2 u_{x_i} u_{x_j} v) \dx\\
+    = &-12 \int_{\domain} u^2 v \sum_{i, j}^n a^{i, j} u_{x_i} u_{x_j} \dx
+ %% \leq &-\int_{\domain} 20 u^3 v \sum_{i, j}^n a^{i, j} \left( \frac{u_{x_i}^2}{2} + \frac{u_{x_j}^2}{2} \right) \dx\\
+ %% \leq &-\int_{\domain} 20 u^3 v \left\lvert \grad u \right\rvert^2 \sum_{i, j}^n a^{i, j} \dx
+\end{align*}
+Then, by the ellipticity of $a$, every term inside the integral is positive, meaning the final result must be non-positive.
+Thus, $u^4$ is a weak sub-solution.
+%% Then, since $v$ is non-negative, if the sign of the other terms is invariant, we can ignore it in our computation.
+%% Then since $u^4 v$ is weakly differentiable and bounded, we must have
+%% \begin{align*}
+%%   0 = &\int_{\domain} \sum_{i, j}^n 5 a^{i, j} u_{x_i} (\graddir{j} u^4 v) \dx\\
+%%   B[u^5, v] = &-\int_{\domain} 20 a^{i, j} u^3 u_{x_i} u_{x_j} v \dx
+%% \end{align*}
+%% Consider $B[u^4, u]$:
+%% \begin{align*}
+%%   0 = B[u, u^4] = \int_{\domain} \sum_{i, j}^n a^{i, j} u_{x_i} 4 u^3 u_{x_j} \dx = B[u^4, u]
+%% \end{align*}
+\newpage
