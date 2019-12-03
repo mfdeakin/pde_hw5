@@ -1,14 +1,171 @@
 (20 points)
 Let $u$ be a weak sub-solution of
 \begin{align*}
-  -\sum_{i, j} \graddir{i}(a^{i, j} \graddir{j} u) + c u = f
+  -\sum_{i, j} \graddir{i} (a^{i, j} \graddir{j} u) + c u = f
 \end{align*}
 where $\theta \leq a^{i, j} \leq C_2 < \infty$.
-Suppose that $c \in \lnfunc{B_1}{\frac{n}{2}}$, $f \in \lnfunc{B_1}{q}$
+Suppose that $c \in \lnfunc{\ballunit}{\frac{n}{2}}$, $f \in \lnfunc{\ballunit}{q}$
 where $q > \frac{n}{2}$.
 Show that there exists a generic constant $\epsilon_0 > 0$ such that if
-$\int_{B_1} |c|^{\frac{n}{2}} \dx \leq \epsilon_0$, then
+$\int_{\ballunit} |c|^{\frac{n}{2}} \dx \leq \epsilon_0$, then
 \begin{align*}
-  \sup_{B_{\frac{1}{2}}} u^+ \leq C ( \lnorm{u^+}{2}{B_1} + \lnorm{f}{q}{B_1} )
+  \sup_{B_{\frac{1}{2}}} u^+ \leq C ( \lnorm{u^+}{2}{\ballunit} + \lnorm{f}{q}{\ballunit} )
 \end{align*}
 (Hint: Follow Moser's Iteration procedure)
+
+This is pretty much the same as in Han-Lin's Ch 4,
+except we must use that $\sobolevh{\ballunit}{\frac{n}{2}}$
+is only contained in $L^2$, not compactly contained.
+
+The primary difference from Moser's proof of local boundedness is that
+$c_0 = \lvert c \rvert + \frac{\lvert f \rvert}{k}$
+is not necessarily in $\lnfunc{\ballunit}{q}$.
+However, $f$ is in $\lnfunc{\ballunit}{\frac{n}{2}}$.
+So we should define $\Lambda$ s.t.
+$\linfnorm{a^{i, j}}{\ballunit} + \lnorm{c}{\frac{n}{2}}{\ballunit} \leq \Lambda < \infty$,
+and $c_0 = \lvert c \rvert + \frac{\lvert f \rvert}{k}$.
+Then $\lnorm{c_0}{\frac{n}{2}}{\ballunit} \leq \Lambda + 1$
+Using Holder's inequality, we find
+\begin{align*}
+  \int c_0 w^2 \eta^2 \leq
+    & \left( \int_{\ballunit} c^{\frac{n}{2}} \dx \right)^{\frac{2}{n}}
+      \left( \int_{\ballunit} (\eta w)^{\frac{n}{n - 2}} \dx \right)^{\frac{n - 2}{n}}
+      \leq (\Lambda + 1) \left( \int_{\ballunit} (\eta w)^{\frac{n}{n - 2}} \dx \right)^{\frac{n - 2}{n}}
+\end{align*}
+
+%% START from lecture notes\\
+
+%% Define $w = \overline{u}_m^{\frac{\beta}{2}} \overline{u}$,
+%% and let $\eta$ be a smooth mollifier with $\eta(\ball{0}{r}) = \set{ 1 }$,
+%% $\eta(\ball{0}{R}^C) = \set{ 0 }$ for some $0 < r < R < 1$,
+%% and $\lvert \grad \eta \rvert \leq \frac{C}{R - r}$ for some $C$.
+
+%% We can bound the terms of our weak form with this test function $v$
+%% $\int_{\ball{0}{1}} a^{i, j} (\graddir{i} u) (\graddir{j} w \eta^2 + (w - k^{\beta + 1}) 2 (\graddir{j} \eta) \eta \dx$.
+%% Starting with the second term, applying ellipticity and properties of $\overline{u}$, we get
+%% \begin{align*}
+%%   & \int_{\ball{0}{1}} a^{i, j} \graddir{i} u [\graddir{j} w \eta^2 + 2 (w - k^{\beta + 1}) (\graddir{j} \eta) \eta] \dx\\
+%%   \geq & \theta \int_{\ball{0}{1}} \beta \eta^2 \overline{u}_m^\beta \lvert \grad \overline{u}_m \rvert^2
+%%            + \eta^2 \overline{u}_m^\beta \lvert \grad \overline{u} \rvert^2 \dx\\
+%%   & \lvert \grad w \rvert^2 \leq & \overline{u}_m^{\beta} \overline{u}^2 \lvert \grad \overline{u}_m \rvert^2
+%%     + \overline{u}_m^\beta \lvert \grad \overline{u} \rvert^2\\
+%%     \leq & \overline{u}_m^{\beta - 1} \overline{u} \lvert \grad \overline{u}_m \rvert^2
+%%            + \overline{u}_m^{\beta} \lvert \grad \overline{u} \rvert^2\\
+%%   \int_{\ball{0}{1}} a^{i, j} \graddir{i} u [\graddir{j} w \eta^2 + 2 (w - k^{\beta + 1}) (\graddir{j} \eta) \eta] \dx\\
+%% \end{align*}
+
+%% We bound the
+
+%% For large $k$, we have
+%% \begin{align*}
+%%   \int \lvert \grad (w \eta) \rvert^2 \dx
+%%     \leq & C \int \lvert w \rvert^2 ( \lvert \nabla \grad \eta \rvert^2 + \eta^2 ) \dx
+%% \end{align*}
+%% which we can apply the Sobolev inequality to get
+%% \begin{align*}
+%%   \lnorm{w \eta}{\frac{2 n}{n - 2}}{\ball{0}{1}}^2
+%%     \leq & C \lnorm{w \eta}{2}{\ball{0}{1}}^2
+%%       \int \lvert \grad (w \eta) \rvert^2 \dx
+%%     \leq C \int \lvert w \rvert^2 ( \lvert \nabla \grad \eta \rvert^2 + \eta^2 ) \dx\\
+%%     \leq & \frac{C}{R - r} \int_{\ball{0}{R}} \lvert w \rvert^2 \dx
+%% \end{align*}
+
+%% START from Han, Lin\\
+
+First, if $\lnorm{f}{q}{\ballunit} > 0$, let $k = \lnorm{f}{\frac{n}{2}}{\ballunit}$,
+otherwise let it be arbitrarily larger than $0$.
+Then for some $m > 0$, $\beta \geq 0$, with mollifier $\eta$ with $\eta(\ball{0}{r}) = \set{ 1 }$,
+$\eta(\ball{0}{R}^C) = \set{ 0 }$ for some $0 < r < R < 1$,
+and $\lvert \grad \eta \rvert \leq \frac{C}{R - r}$ for some $C$, define
+\begin{align*}
+  \overline{u} = &u^+ + k\\
+  \overline{u}_m = &
+  \begin{cases}
+    \overline{u} & \text{if } u < m\\
+    k + m & \text{if } u \geq m\\
+  \end{cases}\\
+  v = &\eta^2 (\overline{u}_{m}^{\beta} \overline{u} - k^{\beta + 1})
+         \in \sobolevhcs{\ballunit}{1}\\
+ \grad v = &\eta^2 \overline{u}_m^\beta (\beta \grad \overline{u}_m + \grad \overline{u})
+            + 2 \eta \grad \eta (\overline{u}_m^\beta \overline{u} - k^{\beta + 1})\\
+\end{align*}
+By the ellipticity of $a$, existence of $\lnorm{c}{\frac{n}{2}}{\ballunit}$, we have
+\begin{align*}
+  \int_{\domain} a^{i, j} (\graddir{i} u) (\graddir{j} v)
+    \geq & \theta \int_{\domain} \beta \eta^2 \overline{u}_m^\beta \lvert \grad \overline{u}_m \rvert^2
+           + \eta^2 \overline{u}_m^\beta \lvert \grad \overline{u} \rvert^2 \dx
+           - \Lambda \int_{\domain} \lvert \grad \overline{u} \rvert \lvert \grad \eta \rvert \overline{u}_m^\beta \overline{u} \eta \dx\\
+    \geq & \theta \int_{\domain} \beta \eta^2 \overline{u}_m^\beta \lvert \grad \overline{u}_m \rvert^2
+           + \frac{1}{2} \eta^2 \overline{u}_m^\beta \lvert \grad \overline{u} \rvert^2 \dx
+           - \frac{2 \Lambda^2}{\theta} \int_{\domain} \lvert \grad \eta \rvert^2 \overline{u}_m^\beta \overline{u}^2 \dx\\
+\end{align*}
+since % by the Holder inequality
+\begin{align*}
+  \Lambda \int_{\domain} \lvert \grad \overline{u} \rvert \lvert \grad \eta \rvert \overline{u}_m^\beta \overline{u} \eta \dx
+    \leq & \frac{\theta}{2} \int_{\domain} \eta^2 \overline{u}_m^\beta \lvert \grad \overline{u} \rvert^2 \dx
+           + \frac{2 \Lambda^2}{\theta} \int_{\domain} \lvert \grad \eta \rvert^2 \overline{u}_m^\beta \overline{u}^2 \dx
+\end{align*}
+We are able to bound the first two terms by making use of $\overline{u} \geq k$:
+\begin{align*}
+  \int_{\domain} \beta \eta^2 \overline{u}_m^\beta \lvert \grad \overline{u}_m \rvert^2
+      + \eta^2 \overline{u}_m^\beta \lvert \grad \overline{u} \rvert^2 \dx
+    \leq & C \int_{\domain} \lvert \grad \eta \rvert^2 \overline{u}_m^\beta \overline{u}^2
+      + \left( \lvert c \rvert + \frac{\lvert f \rvert}{k} \right) \eta^2 \overline{u}_m^\beta \overline{u}^2
+\end{align*}
+Let $c_0 = \lvert c \rvert + \frac{\lvert f \rvert}{k}$,
+with $\lnorm{c_0}{\frac{n}{2}}{\ball{0}{1}} \leq \Lambda + 1$.
+
+Then
+\begin{align*}
+  \int_{\ball{0}{r}} \lvert \grad w \rvert^2 \eta^2 \dx
+    \leq C (1 + \beta) \int_{\ball{0}{1}} w^2 \eta^2 + w^2 \lvert \grad \eta \rvert^2 \dx
+\end{align*}
+
+Using Holder's inequality, we have
+\begin{align*}
+  \int_{\ball{0}{1}} c_0 \lvert \grad w \rvert^2 \eta^2 \dx
+    \leq & \left( \int_{\ball{0}{1}} c_0^{\frac{n}{2}} \dx \right)^{\frac{2}{n}}
+           \left( \int_{\ball{0}{1}} (\eta w)^{\frac{2 n}{n - 2}} \dx \right)^{\frac{n - 2}{n}}\\
+    \leq & (\Lambda + 1)
+           \left( \int_{\ball{0}{1}} (\eta w)^{\frac{2 n}{n - 2}} \dx \right)^{\frac{n - 2}{n}}
+\end{align*}
+We compute, using properties of $\overline{u}_m$ and $\eta$, the Sobolev inequality gives
+\begin{align*}
+  \lnorm{\eta w}{\frac{2 n}{n - 2}}{\ballunit} \leq &
+    \lnorm{\eta w}{\frac{2 n}{n - 2}}{\ballunit}
+    % + C \epsilon^{-\frac{n}{2 q - n}} \lnorm{\eta w}{2}{\ballunit}\\
+    \leq \lnorm{\grad (\eta w)}{2}{\ballunit}
+    % + C \epsilon^{-\frac{n}{2 q - n}} \lnorm{\eta w}{2}{\ballunit}
+\end{align*}
+% for small positive $\epsilon$.
+Note the difference from the more general problem in class,
+since we can't take the L-$q$ norm.
+
+The Key Step: Recall that $\lnfuncdom{b} \subset \lnfuncdom{a}$ when $b \geq a$.
+We then compute (since the Sobolev inequality works in the equality case, but not compactly.)
+\begin{align*}
+  \lnorm{\lvert \grad \eta w \rvert}{2}{\ballunit}^2
+    \leq & C \int_{\ball{0}{1}} (1 + \beta) w^2 \lvert \grad \eta \rvert^2
+           + (1 + \beta)^{\frac{2 q}{2 q - n}} w^2 \eta^2 \dx
+    \leq C (1 + \beta)^{\alpha} \int (\lvert \grad \eta \rvert^2 + \eta^2) w^2
+\end{align*}
+Applying the Sobolev inequality again gives lets us use this to bound the $\chi$ norm of $\eta w$:
+\begin{align*}
+  \lnorm{w}{\chi}{\ball{0}{r}}^2
+    \leq & C \int_{\ball{0}{1}} (1 + \beta)^\alpha w^2 (\lvert \grad \eta \rvert^2 + \eta^2) \dx\\
+    \leq & C \frac{(1 + \beta)^\alpha}{(R - r)^2} \int_{\ball{0}{R}} w^2 \dx\\
+  \lnorm{\overline{u}}{\chi \beta}{\ball{0}{r}}^\beta
+    \leq & C \frac{(1 + \beta)^\alpha}{(R - r)^2} \int_{\ball{0}{R}} \overline{u}^{\beta + 2} \dx\\
+  \lnorm{\overline{u}}{\chi \beta}{\ball{0}{r}}
+    \leq & C \left( \frac{(1 + \beta)^\alpha}{(R - r)^2} \right)^{\frac{1}{\beta + 2}} \lnorm{\overline{u}}{\beta + 2}{\ball{0}{R}} \dx\\
+    \leq & C \left( \frac{(1 + \beta)^\alpha}{(R - r)^2} \right)^{\frac{1}{\beta + 2}} \lnorm{u^+ + k}{\beta + 2}{\ball{0}{R}} \dx\\
+    \leq & C \left( \frac{(1 + \beta)^\alpha}{(R - r)^2} \right)^{\frac{1}{\beta + 2}} \lnorm{u^+ + f}{\beta + 2}{\ball{0}{R}} \dx
+\end{align*}
+We can then iterate, choose $\beta_i = 2 \chi_i - 2$, and $r_i = \frac{1}{2} + \frac{1}{2^{i + 1}}$.
+We end with $\beta_i + 2 \to \infty$, and $r_i \to \frac{1}{2}$, completing the proof,
+as each iteration shows
+\begin{align*}
+  \lnorm{u^+}{\beta_{i + 1} + 2}{\ball{0}{r_{i + 1}}} \leq C ( \lnorm{u^+}{\beta_{i} + 2}{\ball{0}{r_i}} + \lnorm{f}{q}{\ballunit} )
+\end{align*}
+
+I'm concerned that this might use the compactly contained sobolev inequality which doesn't exist for this $c$?
