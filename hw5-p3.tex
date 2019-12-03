@@ -46,15 +46,15 @@ To conclude, using the difference quotient integration by parts formula and diff
     = &\int_{\reals^n} (u^3(x + h e_k) - u^3(x)) (\diffquotdir{h}{k} u) \dx\\
     = &\int_{\reals^n} \frac{1}{h}((u(x + h e_k) - u(x)) (u^2(x + h e_k) + u(x + h e_k) u(x) + u^2(x))) (\diffquotdir{h}{k} u) \dx\\
  \geq &\int_{\reals^n} \left(\frac{1}{2} u^2(x + h e_k) + u(x + h e_k) u(x) + \frac{1}{2} u(x)) \right) (\diffquotdir{h}{k} u)^2 \dx\\
-    = &\int_{\reals^n} \frac{1}{2}(u(x + h e_k) + u(x)))^2 (\diffquotdir{h}{k} u)^2 \dx\\
-    \geq &0
+    = &\int_{\reals^n} \frac{1}{2}(u(x + h e_k) + u(x)))^2 (\diffquotdir{h}{k} u)^2 \dx
+    \geq 0
 \end{align*}
 Thus,
 \begin{align*}
   \int_{\reals^n} \left|\diffquotdir{h}{k} \grad u \right|^2 \dx
     \leq C \int_{\reals^n} f^2 \dx
        + \frac{1}{2} \int_{\reals^n} (\diffquotdir{h}{k} \grad u)^2 \dx
+    \leq C \int_{\reals^n} f^2 \dx < \infty
 \end{align*}
-%% Then recall that $\sobolevh{\reals^n}{1} = \sobolevhcs{\reals^n}{1}$,
-%% so we can apply Evans 5.8.2 Theorem 3 to conclude
-%% $\int_{\reals^n} (D u) \cdot (D v) \dx \leq \int_{\ \diffquotdir{h}{k}reals^n} (\lapl u)$
+Then by Evans 5.8.2 Theorem 3, we know that $u$ has a finite second derivative with L-$2$ norm bounded above by
+$C \lnormdom{f}{2}$.

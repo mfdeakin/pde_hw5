@@ -106,10 +106,14 @@ Thus, the energy functional is convex, and has at most one minimum.
 We next show that $i$ is coercive,
 and then by Evans 8.2 Theorem 5, since $i$ is convex and the
 admissible set is non-empty, the mninimizer must exist.
-We do this by the Poincare's inequality and the boundedness of $\lvert f \rvert \leq F$:
+We do this by the Poincare's inequality and the boundedness of
+$\lvert f \rvert \leq F$ and $\lvert \grad w \rvert$
+(since $w \in \sobolevhcsdom{1}$, $\lvert \grad w \rvert$ must be bounded):
 \begin{align*}
-  i[w] =& \int_{\domain} \frac{1}{2} \lvert \grad w \rvert^2 + \frac{1}{4} w^4 + f w \dx\\
-    \geq& \int_{\domain} \frac{1}{2} \lvert \grad w \rvert^2 + f w \dx\\
+  i[w] =& \int_{\domain} \frac{1}{2} \lvert \grad w \rvert^2 + \frac{1}{4} w^4 + f w \dx
+    \geq \int_{\domain} \frac{1}{2} \lvert \grad w \rvert^2 + f w \dx\\
     \geq& \int_{\domain} \frac{1}{2} \lvert \grad w \rvert^2 + C \lvert \grad w \rvert \dx
+    \geq \int_{\domain} \frac{1}{2} \lvert \grad w \rvert (\lvert \grad w \rvert + C) \dx
+    \geq \int_{\domain} \frac{C}{2} \lvert \grad w \rvert \dx
 \end{align*}
 Thus, $i$ is coercive, and since it is also convex, the minimizer must exist in $\sobolevhcsdom{1}$.
