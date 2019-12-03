@@ -27,15 +27,16 @@ Then we compute
 %%        + \frac{8}{3} (n - 1) F e^{-\frac{2}{3} (n - 1)}
 %% \end{align*}
 %% ensuring $L w > F$ when $\lvert x \rvert < R$.
+We need $L (w \pm u) \geq L w - F \exp^{-\lvert x \rvert} > 0$.
 In the annulus $0 < r = \frac{2}{3}(n - 1) < R < \infty$,
 $\epsilon \frac{3 \lvert x \rvert - 2 (n - 1)}{4 \lvert x \rvert} e^{\frac{1}{2} \lvert x \rvert}$
-is positive.
+is positive, so consider this to be our domain.
 Removing positive terms leaves us with $C > \frac{4}{3} F$ as an easy requirement for $L w > F$ in this annulus.
-We also need to ensure that $w > 1$ on the boundary $\lvert x \rvert = \frac{2}{3} (n - 1)$,
+For the minimum principle to apply, we also need to ensure that $w > 1$ on the boundary $\lvert x \rvert = \frac{2}{3} (n - 1)$,
 so choose $C > \max \set{ \frac{4}{3} F, e^{\frac{n - 1}{3}} }$.
 
 Then $w \pm u > 0$ on both boundaries of the annulus,
-and $L w > |f| = |L u|$ ensures $L (w \pm u) > 0$ in the annulus, ensuring the maximum principle holds.
+and $L w > |f| = |L u|$ ensures $L (w \pm u) > 0$ in the annulus, ensuring the minimum principle holds.
 Then by the comparison principle, $\lvert u \rvert \leq w$ in $\ball{0}{R}$.
 Finally, we note that as $R \to \infty$, we can take $\epsilon$ arbitrarily close to $0$,
 proving that the function must decay as $C e^{-\frac{1}{2} \lvert x \rvert}$.

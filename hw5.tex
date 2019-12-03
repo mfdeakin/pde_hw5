@@ -9,13 +9,15 @@
 \usepackage[margin=1.0in, left=0.5in, right=0.5in, top=1.25in, headsep=10mm, headheight=15mm]{geometry}
 \usepackage{graphicx}
 
+\setmainfont{Latin Modern Roman}
 \setmathfont{Latin Modern Math}
 
 \pagestyle{fancy}
 \rhead{Michael Deakin\\Math 516\\Homework 5}
 
 \newcommand*\limitset[1]{{#1}^\prime}
-\newcommand*\closure[1]{\overline{#1}}
+% Not working in unicode math with xelatex for some reason...
+% \newcommand*\closure[1]{\overline #1}
 \newcommand*\closureunion[1]{{#1}\cup \limitset{#1}}
 \newcommand*\interior[1]{{#1}^\circ}
 
@@ -54,7 +56,7 @@
 \newcommand*\sobolevhcsdom[1]{H_0^{#1}\left(\domain \right)}
 
 \newcommand*\grad{D}
-\newcommand*\graddir[1]{D^{#1}}
+\newcommand*\graddir[1]{D_{#1}}
 \newcommand*\lapl{∆}
 \newcommand*\diffquot[1]{D^{#1}}
 \newcommand*\diffquotdir[2]{D_{#2}^{#1}}
@@ -64,7 +66,12 @@
 \newcommand*\bndrydom{\partial \domain}
 \newcommand*\compactcont{\subset \subset} % U \compactcont V \rightarrow U \subset \closure{U} \subset V, where U, V are (open) domains
 
+\newcommand*\ballunit{B_1}
 \newcommand*\ball[2]{B_{#2}(#1)}
+\newcommand*\bunitsurfarea[1]{\omega_{#1}}
+\newcommand*\bunitsurfareadef{\omega_n}
+\newcommand*\bunitvolume[1]{\alpha_{#1}}
+\newcommand*\bunitvolumedef{\alpha_n}
 
 \newcommand*\limitto[2]{\lim \limits_{#1 \rightarrow #2}}
 
@@ -113,7 +120,7 @@
 \def\avgint{\dashint}
 
 \begin{document}
-I collaborated with Damien Huet on this assignment
+I collaborated with Damien Huet and Lewis Liu on this assignment
 \begin{enumerate}
 \item \input{hw5-p1.tex}
 \item \input{hw5-p2.tex}
