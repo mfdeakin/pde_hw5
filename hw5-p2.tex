@@ -2,7 +2,7 @@
 Let $\domain$ be a bounded domain in $\reals^2$.
 Consider the following minimization problem:
 \begin{align*}
-  c = &\inf_{u \in \sobolevhcsdom{1}} \left( \frac{1}{2} \int_\domain |\grad u|^2 \dx
+  c = &\inf_{u \in \sobolevhcsdom{1}} \left( \frac{1}{2} \int_\domain \lvert\grad u\rvert^2 \dx
                                         + \frac{1}{4} \int_\domain u^4 \dx
                                         + \int_\domain f u \dx
                                  \right)
@@ -16,7 +16,7 @@ Show that $c$ can be attained and its minimizer is a weak solution
 \end{align*}
 Show that the weak solution is also unique.
 
-First define the bilinear form $B: (\sobolevhdom{1})^2 \rightarrow \reals$
+First define the bilinear form $B: (\sobolevhcsdom{1})^2 \rightarrow \reals$
 \begin{align*}
   B[u, v] = &\int_{\domain} -(\grad u) \cdot (\grad v) \dx
 \end{align*}
@@ -24,16 +24,16 @@ If $u$ is a weak solution, for any $v \in \sobolevhdom{1}$ we have
 \begin{align*}
   B[u, v] = &\int_{\domain} u^3 v + f v \dx
 \end{align*}
-Next, define $i: \sobolevhdom{1} \rightarrow [0, \infty)$ with
+Next, define $i: \sobolevhcsdom{1} \rightarrow [0, \infty)$ with
 \begin{align*}
-  i[w] = \frac{1}{2} \int_\domain |\grad w|^2 \dx
+  i[w] = \frac{1}{2} \int_\domain \lvert\grad w\lvert^2 \dx
          + \frac{1}{4} \int_\domain w^4 \dx
          + \int_\domain f w \dx
 \end{align*}
 Then for some nonzero $v \in \sobolevhdom{1}$ with $v \in \linffuncdom$, $t \in \reals$,
 we compute
 \begin{align*}
-  i[u + v t] = &\frac{1}{2} \int_\domain |\grad (u + v t)|^2 \dx
+  i[u + v t] = &\frac{1}{2} \int_\domain \lvert\grad (u + v t)\rvert^2 \dx
                 + \frac{1}{4} \int_\domain (u + v t)^4 \dx
                 + \int_\domain f (u + v t) \dx\\
   \pderiv{}{t} i[u + v t]
@@ -76,9 +76,10 @@ if the weak solution exists, it is the minimum and unique.
 
 Alternatively, we can show that $i$ is convex; that is, for any $u_0, u_1 \in \sobolevhdom{1}$,
 $t \in [0, 1]$, we have $i[(1 - t) u_0 + t u_1] \leq (1 - t) i[u_0] + t i[u_1]$.
-This is done by applying Cauchy's inequality:
+We can do this either by noting that it can be constructed with convex functions,
+and thus must be convex, or analytically by applying Cauchy's inequality:
 \begin{align*}
- 0 \geq &i[(1 - t) u_0 + t u_1] - (1 - t) i[u_0] + t i[u_1]\\
+ 0 \geq &i[(1 - t) u_0 + t u_1] - (1 - t) i[u_0] - t i[u_1]\\
    = &\int_{\domain} \frac{1}{2} \left(
          \left\lvert (1 - t) \grad u_0 + t \grad u_1 \right \rvert^2
            - (1 - t) \left\lvert \grad u_0 \right\rvert^2
@@ -102,6 +103,13 @@ ensures that the first term is negative.
 The second term is negative whenever $(1 - t) (u_0 - u_1)^2 > 0$, which is always true for the range of $t$.
 Thus, the energy functional is convex, and has at most one minimum.
 
-Finally, assume that $i$ cannot attain its minimum.
-Then $\forall u \in \sobolevhdom{1}$,
-$i[u] > c$
+We next show that $i$ is coercive,
+and then by Evans 8.2 Theorem 5, since $i$ is convex and the
+admissible set is non-empty, the mninimizer must exist.
+We do this by the Poincare's inequality and the boundedness of $\lvert f \rvert \leq F$:
+\begin{align*}
+  i[w] =& \int_{\domain} \frac{1}{2} \lvert \grad w \rvert^2 + \frac{1}{4} w^4 + f w \dx\\
+    \geq& \int_{\domain} \frac{1}{2} \lvert \grad w \rvert^2 + f w \dx\\
+    \geq& \int_{\domain} \frac{1}{2} \lvert \grad w \rvert^2 + C \lvert \grad w \rvert \dx
+\end{align*}
+Thus, $i$ is coercive, and since it is also convex, the minimizer must exist in $\sobolevhcsdom{1}$.
