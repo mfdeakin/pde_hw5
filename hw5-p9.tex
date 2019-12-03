@@ -1,13 +1,41 @@
 (10 points)
 Let $u$ be a smooth function satisfying
 \begin{align*}
-  -\lapl u + u = f(x) & |u| \leq 1 & x \in \reals^n
+  -\lapl u + u = f(x), \hspace{5mm} |u| \leq 1 \hspace{10mm} x \in \reals^n
 \end{align*}
 where
 \begin{align*}
-  |f(x)| \leq C e^{-|x|}
+  |f(x)| \leq F e^{-|x|}
 \end{align*}
 Deduce from the maximum principle that $u$ actually decays
 \begin{align*}
   |u(x)| \leq C e^{-\frac{1}{2} |x|}
 \end{align*}
+
+Since $|u| \leq 1$, for a given radius $R$, we can choose $\epsilon > 0$ s.t. $\epsilon e^{\frac{R}{2}} > 1 > |u|$;
+specifically any $\epsilon > e^{-\frac{R}{2}}$ will work.
+% For $R > \frac{1}{4}$, let $\epsilon = 4 R e^{-\frac{R}{2}}$.
+Define $w = C e^{-\frac{1}{2} \lvert x \rvert} + 4 R e^{-\frac{R}{2}} e^{\frac{1}{2} \lvert x \rvert}$ with this $\epsilon$ and some $C > 0$.
+Then we compute
+\begin{align*}
+  L w = &\epsilon \frac{3 \lvert x \rvert - 2 (n - 1)}{4 \lvert x \rvert} e^{\frac{1}{2} \lvert x \rvert}
+         + C \frac{3 \lvert x \rvert + 2 (n - 1)}{4 \lvert x \rvert} e^{-\frac{1}{2} \lvert x \rvert}
+\end{align*}
+%% and we can choose
+%% \begin{align*}
+%%   C > &\max \limits_{x \in \reals^n} \frac{4}{3} F e^{-\frac{1}{2} \lvert x \rvert}
+%%        + \frac{8}{3} (n - 1) F e^{-\frac{2}{3} (n - 1)}
+%% \end{align*}
+%% ensuring $L w > F$ when $\lvert x \rvert < R$.
+In the annulus $0 < r = \frac{2}{3}(n - 1) < R < \infty$,
+$\epsilon \frac{3 \lvert x \rvert - 2 (n - 1)}{4 \lvert x \rvert} e^{\frac{1}{2} \lvert x \rvert}$
+is positive.
+Removing positive terms leaves us with $C > \frac{4}{3} F$ as an easy requirement for $L w > F$ in this annulus.
+We also need to ensure that $w > 1$ on the boundary $\lvert x \rvert = \frac{2}{3} (n - 1)$,
+so choose $C > \max \set{ \frac{4}{3} F, e^{\frac{n - 1}{3}} }$.
+
+Then $w \pm u > 0$ on both boundaries of the annulus,
+and $L w > |f| = |L u|$ ensures $L (w \pm u) > 0$ in the annulus, ensuring the maximum principle holds.
+Then by the comparison principle, $\lvert u \rvert \leq w$ in $\ball{0}{R}$.
+Finally, we note that as $R \to \infty$, we can take $\epsilon$ arbitrarily close to $0$,
+proving that the function must decay as $C e^{-\frac{1}{2} \lvert x \rvert}$.
